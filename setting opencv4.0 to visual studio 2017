@@ -1,0 +1,58 @@
+Setting opencv4.0 for visual studio 2017(c++)
+download visual studio 2017
+download opencv4.0
+extract opencv4.0 to root direcatory c:\
+----------------------------------
+setting path variable
+1.Windows
+open advance windows settings
+openv environment settings
+edit environment path variable
+    1.select environment path variable
+    2.click on edit option
+    3.click on new option 
+    4.browse to the folder location "C:\opencv\build\x64\vc14\bin"
+    5.Save and exit
+Open visual studio 2017
+create a new project c++ console based project
+*change the ececution loader from x84 to x64 bit
+setting liberaries for opencv to project
+  1.open project properties
+  2.goto c/c++ tab
+  3.open edit option in AdditionalIncludeDirectories 
+  4.add the folder "C:\opencv\build\include"
+  5.goto linker->general tab
+  6.open AdditionalLibraryDirectories edit option
+  7.add folder C:\opencv\build\x64\vc14\lib
+  8.open linker->input tab
+  9.open edit option AdditionalDependencies
+  10.add libraries dependencies opencv_world400.lib; opencv_world400d.lib;
+  11. save and close project properties
+sample code to test opencv working with sample application to open camera and show image
+//***********************
+#include "pch.h"
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/opencv.hpp>
+#include<iostream>
+using namespace std;
+using namespace cv;
+int main()
+{
+	int x;
+	Mat img;
+	VideoCapture cap(0);
+	namedWindow("image", WINDOW_AUTOSIZE);
+	cap >> img;
+	
+	while (1) 
+	{
+		cap >> img;
+		imshow("image", img);
+		if(waitKey(1)==27)
+			break;
+	}
+	return 0;
+}
+//************************
